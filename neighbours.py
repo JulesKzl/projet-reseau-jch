@@ -107,8 +107,6 @@ def print_neighbours(l):
 #
 #     send.send_neighbours(sock,neigh,neigh_list):
 
-# neigh.IP b'\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xff\xff\xa4\x84j\x07'
-# neigh.port b'\x04\xa8'
 
 def new_unilateral_neighbour(new_Id,new_IP,new_port):
     """ Quand on recoit un nouveau message, on met à jour nos listes de
