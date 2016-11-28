@@ -1,6 +1,6 @@
 import time
 
-datas = {'1604135e1d0c135e':('L.O.',time.time(),0)}
+datas = {'1604135e1d0c135e':('L.O.',time.time(),0,False,[])}
 
 def add_data (Id,new_data,seqno):
     maybe = datas.get(Id)
@@ -11,7 +11,7 @@ def add_data (Id,new_data,seqno):
             maybe[2] = seqno
             #innonde()
     else :
-        datas[Id] = (new_data,time.time(),seqno)
+        datas[Id] = (new_data,time.time(),seqno,False,[])
         #innonde()
     #send_I_have ()
 
@@ -37,5 +37,10 @@ def update_data (tlv):
     else :
         datas[Id] = (data,now,seqno)
         #innondation()
+
+
+
+
+
 
 

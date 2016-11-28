@@ -66,7 +66,7 @@ def send_data (sock,neigh,Id):
 
 
 def make_Ihave (seqno,Id):
-    return(bytes([6,12,seqno//256,seqno%256])+Id)
+    return(bytes([6,12])+seqno+Id)
 def send_Ihave (sock,IP,port,tlv):
     seqno = tlv[2:6]
     Id = tlv[6:14]
