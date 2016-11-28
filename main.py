@@ -1,6 +1,9 @@
 import socket
 import types
 
+import last_time
+import neighbourgs
+
 #en IPv4
 #IP de Juliusz
 HOST_JCH = '81.194.27.155'
@@ -16,6 +19,7 @@ Id_JCH = bytes.fromhex('6722a421aadb51bd')
 #Magic et Version
 ENTETE_UDP = bytes([57,0])
 
+#TODO rendre l'Id aléatoire (à la fin, d'abord les tests)
 #Id_Jules
 Id = bytes([22,4,19,95,29,12,19,95])
 #Id_Gab
@@ -23,13 +27,15 @@ Id = bytes([22,4,19,95,29,12,19,95])
 
 
 
-#Créer un IHeardYou d'une Id1 vers une Id2
 def make_IHU(Id1,Id2):
+    """ Créer un IHeardYou d'une Id1 vers une Id2 """
     IHU = bytes([2,8])
     length_IHU = bytes([0,10])
     return ENTETE_UDP + length_IHU + Id1 + IHU + Id2
 
-def main ():
+
+
+def main():
     #On crée la socket pour se connecter à Juliusz
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.bind((HOST_SELF,PORT_SELF))
@@ -92,7 +98,7 @@ def main ():
             #On a traité le TLV, on le supprime de la liste courante
             tlv_list = tlv_list[1:]
         #TODO On regarde si on doit inonder ou non (cf plus tard)
-        #TODO choses à executer pérodiquement 
+        #TODO choses à executer pérodiquement
 
 
 if __name__ == "__main__":
