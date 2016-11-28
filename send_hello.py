@@ -7,7 +7,7 @@ PORT_BOOT = 1212
 PORT_SELF = 1312
 BOOTSRAP_JCH = bytes.fromhex('6722a421aadb51bd')
 ENTETE = bytes([57,0,0,20,22,4,19,94,29,12,19,94])
-SUITE = bytes([5,18,0,0,0,1,22,4,19,94,29,12,19,94,32,4])
+SUITE = bytes([5,18,0,0,0,2,22,4,19,94,29,12,19,94,32,4])
 
 def main ():
     s = socket.socket(socket.AF_INET6, socket.SOCK_DGRAM)

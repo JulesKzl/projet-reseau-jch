@@ -9,11 +9,16 @@ date_enough_potential_neighbours = time.time()
 date_delete_old_data = time.time()
 date_pulish_date = time.time()
 #incrementer sequeno
-date_seqno = time.time()
+date_publi = time.time()
 
 
 
+def time_publi ():
+    now = time.time()
+    if now - date_publi > 1800. :
+        # publie (now)
 
-
-
-
+def publie (date):
+    date_publi = now
+    #incr_seqno()
+    #innonde ()
