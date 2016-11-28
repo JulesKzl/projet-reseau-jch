@@ -31,14 +31,17 @@ def initialize_neighbourg(l):
 def add_neighbours(l,v):
     """ Prends en entrée une liste l de triplet (Id,IP,Port) et la liste voisins
         v considérée et ajoute les nouveaux voisins potentiels à la variable globale
-        potential_neighbourgs """
+        v"""
     while l != list():
         #On considère le nouvel element
         (Id,IP,port) = l[0]
         #et on le supprime de la liste initiale
         l = l[1::]
         new_neighbourg = Neighbourg(Id,IP,port)
-        new_neighbourg.date = time.time()
+        #Si on est dans S ou U, alors on associe une date
+        if (v == symetric_neighbourgs or v == unilateral_neighbourgs):
+            new_neighbourg.date = time.time()
+        #Si on est dans S, on associe une date de dernier IHU reçu
         if v == symetric_neighbourgs:
             new_neighbourg.date_ihu = time.time()
         v = v.append(new_neighbourg)
@@ -55,8 +58,12 @@ def print_neighbourgs(l):
         print("Id :",n.Id.hex())
         print("IP :",n.IP)
         print("Port :",n.port)
-        print("Date :",n.date)
-        print("date updated ? "time.time() - n.date())
+        if (l == symetric_neighbourgs or l == unilateral_neighbourgs):
+            print("Date :",n.date)
+            print("date updated ?",time.time() - n.date)
+        if l == symetric_neighbourgs:
+            print("Date_IHU :",n.date_ihu)
+            print("date_ihu updated ? ",time.time() - n.date_ihu
         i += 1
 
 

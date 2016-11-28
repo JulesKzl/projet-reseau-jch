@@ -17,8 +17,9 @@ def time_publi ():
     now = time.time()
     if now - date_publi > 1800. :
         # publie (now)
+        return 0
 
-def publie (date):
-    date_publi = now
+def publie(date):
+    date_publi = date
     #incr_seqno()
     #innonde ()
