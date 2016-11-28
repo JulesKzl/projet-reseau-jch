@@ -42,7 +42,6 @@ def main():
     s.bind((HOST_SELF,PORT_SELF))
     #On initialise nos voisins grâce à nos bootstrap
     nb.initialize_neighbourg([(Id_JCH,HOST_JCH,1212)])
-    #DEBUG nb.print_neighbourgs(nb.potential_neighbourgs)
     #On envoie un IHU à nos bootstrap (ici Juliusz)
     s.sendto(make_IHU(Id,Id_JCH), (HOST_JCH,PORT_JCH))
     print('IHU send to',HOST_JCH,":",PORT_JCH)
@@ -51,10 +50,14 @@ def main():
     while True :
         #On recoit un paquet UDP de taille maximale 4096
         message,(ip_sender,port_sender) = s.recvfrom(4096)
-        print("New UDP paquet received, from",ip_sender,":",port_sender)
-        print(message)
+        id_sender = af.get_id_from_paquet(message)
+        print("New UDP paquet received, from ",ip_sender,":",port_sender\
+        ,"with Id :",id_sender.hex())
+        print("Message :",message)
+        print("Body length of message :",af.get_length_of_paquet(message))
 
-        #TODO On mets à jour les voisins (potentiels deviennent unilatéral)
+        #On mets à jour les voisins car on a reçu un nouveau paquet
+        nb.new_unilateral_neighbourg(id_sender,ip_sender,port_sender)
         print("Extraction of TLV from UDP paquet ...")
 
         # On extrait les TLV dans une liste tlv_list
@@ -62,13 +65,12 @@ def main():
         n = len(tlv_list) #n est le la taille de tlv_list, soit le nbr de TLV
         print(n," TLV found !")
 
-        #TODO On traite les TLV selon leur type
-        i = 1 #On incrément i à chaque nouveau TLV exploré
+        #On traite le TLV selon son type
+        i = 1 #On incrémentera i à chaque nouveau TLV exploré
         while tlv_list != list():
             tlv = tlv_list[0]
-            print("TLV",i,"/",n,"explored")
-            #On traite le TLV selon son type
-            tlv_type = af.find_tlv_type(tlv) 
+            tlv_type = af.find_tlv_type(tlv)
+            print("TLV",i,"/",n,"of type",tlv_type,"is going to be explore")
             if tlv_type == 0:
                 #Le TLV Pad0 est ignoré à la récéption
                 print("TLV Pad0 received")
@@ -78,7 +80,8 @@ def main():
             if tlv_type == 2:
                 #On a reçu un IHU
                 print("TLV IHU received")
-                #TODO On mets à jour les voisins (unilatéral deviennent symétrique)
+                #On mets à jour les voisins (unilatéral deviennent symétrique)
+                nb.new_symetric_neighbourg(id_sender,ip_sender,port_sender)
             if tlv_type == 3:
                 #On a reçu un Neighbour Request
                 print("TLV Neighbour Request received")
@@ -87,7 +90,7 @@ def main():
             if tlv_type == 4:
                 #On a reçu un Neighbours
                 print("TLV Neighbours received")
-                new_neighbours = af.extract_neigh_from_tlv(tlv) 
+                new_neighbours = af.extract_neigh_from_tlv(tlv)
                 #On extrait les voisins sous forme d'une liste de triplés
                 #TODO on repeuple nos voisins potentiels
             if tlv_type == 5:
@@ -101,6 +104,8 @@ def main():
                 #cf inondation je sais pas encore trop
 
             #On a traité le TLV, on le supprime de la liste courante
+            print("TLV",i,"/",n,"has been explored")
+            i += 1
             tlv_list = tlv_list[1:]
         #TODO On regarde si on doit inonder ou non (cf plus tard)
         #TODO choses à executer pérodiquement
