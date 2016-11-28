@@ -1,12 +1,12 @@
 import time
 
-datas = {'1604135e1d0c135e':('L.O.',time.time(),seqno)}
+datas = {'1604135e1d0c135e':('L.O.',time.time(),0)}
 
 if __init__ == "__main__" :
     print("toto")
 
 def add_data (Id,new_data,seqno):
-    maybe = datas.get('Id')
+    maybe = datas.get(Id)
     if maybe != None :
         if maybe[2] < seqno :
             maybe[0] = new_data
@@ -14,7 +14,7 @@ def add_data (Id,new_data,seqno):
             maybe[2] = seqno
             #innonde()
     else :
-        datas['Id'] = (new_data,time.time(),seqno)
+        datas[Id] = (new_data,time.time(),seqno)
         #innonde()
     #send_I_have ()
 
