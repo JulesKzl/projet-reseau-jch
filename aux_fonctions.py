@@ -25,11 +25,14 @@ def extract_tlv_from_paquet (paquet):
         curseur = curseur + length_tlv + 2
     return(tlv_list)
 
+# Renvoie le type d'un tlv
+def find_tlv_type (tlv) :
+    return (tlv[0])
 
 
 
-
-
+def bidon() :
+    return (0)
 
 
 

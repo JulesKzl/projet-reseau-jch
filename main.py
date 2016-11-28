@@ -1,6 +1,6 @@
 import socket
 import types
-import aux_fonctions
+import aux_fonctions as af
 
 import last_time
 import neighbourgs
@@ -54,14 +54,15 @@ def main():
         #TODO On mets à jour les voisins (potentiels deviennent unilatéral)
         print("Extraction of TLV from UDP paquet ...")
 
-        #TODO On extrait les TLV dans une liste tlv_list
-        tlv_list = list([0]) #TOCHANGE #Le résultat de l'extraction du paquet UDP
+        # On extrait les TLV dans une liste tlv_list
+        tlv_list = af.extract_tlv_from_paquet(message)
         n = len(tlv_list) #n est le la taille de tlv_list, soit le nbr de TLV
-        print(n,"TLV found !")
+        print(n," TLV found !")
 
         #TODO On traite les TLV selon leur type
         i = 1 #On incrément i à chaque nouveau TLV exploré
         while tlv_list != list():
+            tlv = tlv_list[0]
             print("TLV",i,"/",n,"explored")
             #On traite le TLV selon son type
             #TODO on accède au type de TLV par la fonction find_tlv_type
@@ -84,7 +85,8 @@ def main():
             if tlv_type == 4:
                 #On a reçu un Neighbours
                 print("TLV Neighbours received")
-                #TODO on extrait les voisins
+                new_neighbours = af.extract_neigh_from_tlv(tlv) 
+                #On extrait les voisins sous forme d'une liste de triplés
                 #TODO on repeuple nos voisins potentiels
             if tlv_type == 5:
                 #On a reçu des données !
