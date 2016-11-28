@@ -68,8 +68,7 @@ def main():
             tlv = tlv_list[0]
             print("TLV",i,"/",n,"explored")
             #On traite le TLV selon son type
-            #TODO on accède au type de TLV par la fonction find_tlv_type
-            tlv_type = 0 #TOCHANGE #Le résultat de find_tlv_type
+            tlv_type = af.find_tlv_type(tlv) 
             if tlv_type == 0:
                 #Le TLV Pad0 est ignoré à la récéption
                 print("TLV Pad0 received")

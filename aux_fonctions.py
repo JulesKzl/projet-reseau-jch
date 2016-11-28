@@ -26,10 +26,12 @@ def extract_tlv_from_paquet (paquet):
     return(tlv_list)
 
 # Renvoie le type d'un tlv
-def find_tlv_type (tlv) :
+def find_tlv_type (tlv):
     return (tlv[0])
 
-
+# Renvoie l'id de l'emetteur du paquet
+def get_id_from_paquet (paquet):
+    return(paquet[4:12])
 
 def bidon() :
     return (0)
