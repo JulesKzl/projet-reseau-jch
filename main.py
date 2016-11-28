@@ -3,7 +3,7 @@ import types
 import aux_fonctions as af
 
 import last_time
-import neighbourgs
+import neighbourgs as nb
 
 #en IPv4
 #IP de Juliusz
@@ -40,7 +40,10 @@ def main():
     #On crée la socket pour se connecter à Juliusz
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.bind((HOST_SELF,PORT_SELF))
-    #On envoie un IHU à Juliusz
+    #On initialise nos voisins grâce à nos bootstrap
+    nb.initialize_neighbourg([(Id_JCH,HOST_JCH,1212)])
+    #DEBUG nb.print_neighbourgs(nb.potential_neighbourgs)
+    #On envoie un IHU à nos bootstrap (ici Juliusz)
     s.sendto(make_IHU(Id,Id_JCH), (HOST_JCH,PORT_JCH))
     print('IHU send to',HOST_JCH,":",PORT_JCH)
 
