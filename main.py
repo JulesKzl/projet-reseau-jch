@@ -2,8 +2,8 @@ import socket
 import types
 import aux_fonctions as af
 
-import last_time
-import neighbourgs as nb
+import last_time as lt
+import neighbours as nb
 import const as c
 
 
@@ -12,7 +12,7 @@ def main():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.bind((c.HOST_SELF,c.PORT_SELF))
     #On initialise nos voisins grâce à nos bootstrap
-    nb.initialize_neighbourg([(c.Id_JCH,c.HOST_JCH,c.PORT_JCH)])
+    nb.initialize_neighnour([(c.Id_JCH,c.HOST_JCH,c.PORT_JCH)])
     #On envoie un IHU à nos bootstrap (ici Juliusz)
     s.sendto(c.make_IHU(c.Id,c.Id_JCH), (c.HOST_JCH,c.PORT_JCH))
     print('IHU send to',c.HOST_JCH,":",c.PORT_JCH)
@@ -28,7 +28,7 @@ def main():
         print("Body length of message :",af.get_length_of_paquet(message))
 
         #On mets à jour les voisins car on a reçu un nouveau paquet
-        nb.new_unilateral_neighbourg(id_sender,ip_sender,port_sender)
+        nb.new_unilateral_neighnour(id_sender,ip_sender,port_sender)
 
         # On extrait les TLV dans une liste tlv_list
         print("Extraction of TLV from UDP paquet ...")
@@ -52,7 +52,7 @@ def main():
                 #On a reçu un IHU
                 print("TLV IHU received")
                 #On mets à jour les voisins (unilatéral deviennent symétrique)
-                nb.new_symetric_neighbourg(id_sender,ip_sender,port_sender)
+                nb.new_symetric_neighnour(id_sender,ip_sender,port_sender)
             if tlv_type == 3:
                 #On a reçu un Neighbour Request
                 print("TLV Neighbour Request received")
@@ -66,8 +66,8 @@ def main():
                 new_neighbours = af.extract_neigh_from_tlv(tlv)
                 print(len(new_neighbours),"nouveaux voisins potentiels reçu")
                 #on repeuple nos voisins potentiels
-                nb.add_neighbours(new_neighbours,potential_neighbourgs)
-                nb.debug_neighbourgs()
+                nb.add_neighbours(new_neighbours,potential_neighbours)
+                nb.debug_neighbours()
             if tlv_type == 5:
                 #On a reçu des données !
                 print("TLV Data received !")
@@ -84,6 +84,7 @@ def main():
             tlv_list = tlv_list[1:]
         #TODO On regarde si on doit inonder ou non (cf plus tard)
         #TODO choses à executer pérodiquement
+        #lt.send_neighbours_pad1(s)
 
 
 if __name__ == "__main__":
