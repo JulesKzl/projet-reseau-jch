@@ -1,0 +1,99 @@
+import socket
+import types
+
+#en IPv4
+#IP de Juliusz
+HOST_JCH = '81.194.27.155'
+#toutes les IP
+HOST_SELF= '0.0.0.0'
+#Port de Juliusz
+PORT_JCH = 1212
+#Notre port
+PORT_SELF = 1512
+#Id de Juliusz
+Id_JCH = bytes.fromhex('6722a421aadb51bd')
+
+#Magic et Version
+ENTETE_UDP = bytes([57,0])
+
+#Id_Jules
+Id = bytes([22,4,19,95,29,12,19,95])
+#Id_Gab
+#Id = bytes(22,4,19,94,29,12,19,94])
+
+
+
+#Créer un IHeardYou d'une Id1 vers une Id2
+def make_IHU(Id1,Id2):
+    IHU = bytes([2,8])
+    length_IHU = bytes([0,10])
+    return ENTETE_UDP + length_IHU + Id1 + IHU + Id2
+
+def main ():
+    #On crée la socket pour se connecter à Juliusz
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    s.bind((HOST_SELF,PORT_SELF))
+    #On envoie un IHU à Juliusz
+    s.sendto(make_IHU(Id,Id_JCH), (HOST_JCH,PORT_JCH))
+    print('IHU send to',HOST_JCH,":",PORT_JCH)
+
+    #Boucle principale
+    while True :
+        #On recoit un paquet UDP de taille maximale 4096
+        message,(ip_sender,port_sender) = s.recvfrom(4096)
+        print("New UDP paquet received, from",ip_sender,":",port_sender)
+        print(message)
+
+        #TODO On mets à jour les voisins (potentiels deviennent unilatéral)
+        print("Extraction of TLV from UDP paquet ...")
+
+        #TODO On extrait les TLV dans une liste tlv_list
+        tlv_list = list([0]) #TOCHANGE #Le résultat de l'extraction du paquet UDP
+        n = len(tlv_list) #n est le la taille de tlv_list, soit le nbr de TLV
+        print(n,"TLV found !")
+
+        #TODO On traite les TLV selon leur type
+        i = 1 #On incrément i à chaque nouveau TLV exploré
+        while tlv_list != list():
+            print("TLV",i,"/",n,"explored")
+            #On traite le TLV selon son type
+            #TODO on accède au type de TLV par la fonction find_tlv_type
+            tlv_type = 0 #TOCHANGE #Le résultat de find_tlv_type
+            if tlv_type == 0:
+                #Le TLV Pad0 est ignoré à la récéption
+                print("TLV Pad0 received")
+            if tlv_type == 1:
+                #Le TLV PadN est ignoré à la récéption
+                print("TLV PadN received")
+            if tlv_type == 2:
+                #On a reçu un IHU
+                print("TLV IHU received")
+                #TODO On mets à jour les voisins (unilatéral deviennent symétrique)
+            if tlv_type == 3:
+                #On a reçu un Neighbour Request
+                print("TLV Neighbour Request received")
+                #TODO On envoie un TLV Neighbours à l'emetteur contenant
+                #au moins 5 voisins symétriques
+            if tlv_type == 4:
+                #On a reçu un Neighbours
+                print("TLV Neighbours received")
+                #TODO on extrait les voisins
+                #TODO on repeuple nos voisins potentiels
+            if tlv_type == 5:
+                #On a reçu des données !
+                print("TLV Data received !")
+                #TODO on appelle update_data pour modifier nos données
+                #TODO on envoie un IHave pour la donnée
+            if tlv_type == 6:
+                #On a reçu un IHave
+                print("TLV IHave received !")
+                #cf inondation je sais pas encore trop
+
+            #On a traité le TLV, on le supprime de la liste courante
+            tlv_list = tlv_list[1:]
+        #TODO On regarde si on doit inonder ou non (cf plus tard)
+        #TODO choses à executer pérodiquement 
+
+
+if __name__ == "__main__":
+    main ()
