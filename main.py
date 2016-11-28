@@ -1,5 +1,6 @@
 import socket
 import types
+import aux_fonctions
 
 #en IPv4
 #IP de Juliusz
