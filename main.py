@@ -30,7 +30,7 @@ def main():
         print("Body length of message :",af.get_length_of_paquet(message))
 
         #On mets à jour les voisins car on a reçu un nouveau paquet
-        nb.new_unilateral_neighnour(id_sender,ip_sender,port_sender)
+        nb.new_unilateral_neighbour(id_sender,ip_sender,port_sender)
 
         # On extrait les TLV dans une liste tlv_list
         print("Extraction of TLV from UDP paquet ...")
@@ -54,21 +54,22 @@ def main():
                 #On a reçu un IHU
                 print("TLV IHU received")
                 #On mets à jour les voisins (unilatéral deviennent symétrique)
-                nb.new_symetric_neighnour(id_sender,ip_sender,port_sender)
+                nb.new_symetric_neighbour(id_sender,ip_sender,port_sender)
             if tlv_type == 3:
                 #On a reçu un Neighbour Request
                 print("TLV Neighbour Request received")
                 #TODO On envoie un TLV Neighbours à l'emetteur contenant
                 #au moins 5 voisins symétriques
+                #nb.answer_nr(s,id_sender,ip_sender,port_sender)
             if tlv_type == 4:
                 #TODEBUG
                 #On a reçu un Neighbours
                 print("TLV Neighbours received")
                 #On extrait les voisins sous forme d'une liste de triplés
                 new_neighbours = af.extract_neigh_from_tlv(tlv)
-                print(len(new_neighbours),"nouveaux voisins potentiels reçu")
-                #on repeuple nos voisins potentiels
-                nb.add_neighbours(new_neighbours,potential_neighbours)
+                print(len(new_neighbours),"possibly new neighbours")
+                #on repeuple nos voisins potentiels (sans double dans U et S !)
+                nb.add_potential_neighbours(new_neighbours)
                 nb.debug_neighbours()
             if tlv_type == 5:
                 #On a reçu des données !
