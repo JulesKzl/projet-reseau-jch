@@ -6,6 +6,7 @@ import last_time as lt
 import neighbours as nb
 import const as c
 import send
+import data
 
 
 def main():
@@ -72,8 +73,8 @@ def main():
             if tlv_type == 5:
                 #On a reçu des données !
                 print("TLV Data received !")
-                #TODO on appelle update_data pour modifier nos données
-                #TODO on envoie un IHave pour la donnée
+                data.update_data(tlv)
+                send.send_Ihave (s,)
             if tlv_type == 6:
                 #On a reçu un IHave
                 print("TLV IHave received !")
