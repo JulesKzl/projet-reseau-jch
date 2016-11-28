@@ -25,13 +25,17 @@ def extract_tlv_from_paquet (paquet):
         curseur = curseur + length_tlv + 2
     return(tlv_list)
 
-# Renvoie le type d'un tlv
+# Renvoie le type d'un tlv (int)
 def find_tlv_type (tlv):
     return (tlv[0])
 
-# Renvoie l'id de l'emetteur du paquet
+# Renvoie l'id de l'emetteur du paquet (bytes)
 def get_id_from_paquet (paquet):
     return(paquet[4:12])
+
+# Renvoie la longueur du paquet (int)
+def get_length_of_paquet (paquet):
+    return(paquet[2]*256 + paquet[3])
 
 def bidon() :
     return (0)

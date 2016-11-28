@@ -10,3 +10,10 @@ date_delete_old_data = time.time()
 date_pulish_date = time.time()
 #incrementer sequeno
 date_seqno = time.time()
+
+
+
+
+
+
+
