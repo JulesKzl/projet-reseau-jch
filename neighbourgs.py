@@ -38,8 +38,19 @@ def add_potential_neighbours(l):
         #et on le supprime de la liste initiale
         l = l[1::]
         new_neighbourg = Neighbourg(Id,IP,port)
-        potential_neighbourgs = potential_neighbourgs.append(new_neighbourg)
+        potential_neighbourgs.append(new_neighbourg)
 
+def print_neighbourgs(l):
+    """ Prends en entrée une liste de voisins et l'imprime """
+    i = 0
+    while i < len(l):
+        n = l[i]
+        print("** Neighbourg",i+1,"/",len(l),"**")
+        print("Id :",n.Id.hex())
+        print("IP :",n.IP)
+        print("Port :",n.port)
+        print("Date :",n.date)
+        i += 1
 
 
 def neighbourg_maintenance():
