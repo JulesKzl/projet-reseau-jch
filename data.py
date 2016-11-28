@@ -6,7 +6,7 @@ if __init__ == "__main__" :
     print("toto")
 
 def add_data (Id,new_data,seqno):
-    maybe = datas.gat('Id')
+    maybe = datas.get('Id')
     if maybe != None :
         if maybe[2] < seqno :
             maybe[0] = new_data
@@ -20,6 +20,7 @@ def add_data (Id,new_data,seqno):
 
 
 def rm_data ():
-    for data in datas :
-        print("toto")
+    for key in datas :
+        if time.time() - datas.get(key)[2] > 2100.:
+            del datas[key]
 
