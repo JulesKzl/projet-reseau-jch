@@ -8,7 +8,7 @@ import send
 #maintenance des voisins
 date_send_neighbours_pad1 = time.time()
 date_send_neighbours_ihu = time.time()
-date_delete_old_neighbours = time.time()
+date_clean_neighbours = time.time()
 date_last_nr = time.time()
 #maintenance des données
 date_delete_old_data = time.time()
@@ -31,13 +31,15 @@ def send_neighbours_pad1(sock):
             send.send_pad1(sock,neigh)
         #On regarde si |S| < 5
         if len(nb.symetric_neighbours) < 5:
-            print("We have less than 5 symetrics neighbours")
+            print("We have",len(nb.symetric_neighbours),"< 5 symetrics neighbours ")
             #On envoie un paquet vide à un P au hasard (pour qu'il nous ajoute
             #dans son unilateral stp)
             if nb.potential_neighbours != list():
                 print("Potential list not empty, Empty msg will be send")
                 x = randint(0,len(nb.potential_neighbours)-1)
-                n = nb.potential_neighbours[x]
+                neigh = nb.potential_neighbours[x]
+                print("neigh.IP",neigh.IP)
+                print("neigh.port",neigh.port)
                 send.send_empty(sock,neigh)
             else:
                 print("but the potential_neighbours is empty")
@@ -63,23 +65,26 @@ def send_neighbours_nr(sock):
     """" Toutes les 5 minutes, on envoie un NR à un S au hasard """
     now = time.time()
     global date_last_nr
-    if now - date_last_nr > 300. :
+    if now - date_last_nr > 300./10. :
+        print("We will send Neighbour Request to a member of S")
         if len(nb.potential_neighbours) < 5:
-            print("We have less than 5 symetrics neighbours")
+            print("We have less than 5 potentials neighbours")
             #On envoie un NR à un S au hasard
             if nb.symetric_neighbours != list():
                 print("Symetric list not empty, NR will be send")
                 x = randint(0,len(nb.symetric_neighbours)-1)
-                n = nb.symetric_neighbours[x]
+                neigh = nb.symetric_neighbours[x]
                 send.send_nr(sock,neigh)
             else:
-                print("but the symetric_neighbours list is empty")
+                print("but the symetric_neighbours list is empty, nothing sent")
         #On termine par réinitialiser la date de dernière mise à jour
         date_last_nr = time.time()
+
 
 def maintenance_neighbours(sock):
     send_neighbours_pad1(sock)
     send_neighbours_ihu(sock)
+    send_neighbours_nr(sock)
 
 def time_publi ():
     now = time.time()

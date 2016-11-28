@@ -2,8 +2,6 @@ import time
 
 datas = {'1604135e1d0c135e':('L.O.',time.time(),0)}
 
-if __init__ == "__main__" :
-    print("toto")
 
 def add_data (Id,new_data,seqno):
     maybe = datas.get(Id)
@@ -23,4 +21,3 @@ def rm_data ():
     for key in datas :
         if time.time() - datas.get(key)[2] > 2100.:
             del datas[key]
-
