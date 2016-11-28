@@ -1,10 +1,11 @@
 import socket
 import types
-import aux_fonctions as af
 
+import aux_fonctions as af
 import last_time as lt
 import neighbours as nb
 import const as c
+import send
 
 
 def main():
@@ -14,8 +15,8 @@ def main():
     #On initialise nos voisins grâce à nos bootstrap
     nb.initialize_neighnour([(c.Id_JCH,c.HOST_JCH,c.PORT_JCH)])
     #On envoie un IHU à nos bootstrap (ici Juliusz)
-    s.sendto(c.make_IHU(c.Id,c.Id_JCH), (c.HOST_JCH,c.PORT_JCH))
-    print('IHU send to',c.HOST_JCH,":",c.PORT_JCH)
+    for neigh in nb.potential_neighbours:
+        send.send_ihu (s,neigh)
 
     #Boucle principale
     while True :
@@ -83,8 +84,8 @@ def main():
             i += 1
             tlv_list = tlv_list[1:]
         #TODO On regarde si on doit inonder ou non (cf plus tard)
-        #TODO choses à executer pérodiquement
-        #lt.send_neighbours_pad1(s)
+        #Choses à executer pérodiquement
+        lt.maintenance_neighbours(s)
 
 
 if __name__ == "__main__":

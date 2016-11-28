@@ -30,7 +30,7 @@ def make_nr ():
 def send_nr (sock,neigh):
     sock.sendto(make_entete(2) + make_nr() , (neigh.IP,neigh.port))
     print("NR sent to",neigh.IP,":",neigh.port)
-    
+
 
 def make_neighbours (neigh_list):
     l = len(neigh_list)
@@ -43,5 +43,3 @@ def make_neighbours (neigh_list):
 def send_neighbours (sock,neigh,neigh_list):
     sock.sendto(make_entete(2+26*len(neigh_list)) + make_neighbours(neigh_list) , (neigh.IP,neigh.port))
     print("NEIGHBOURS sent to",neigh.IP,":",neigh.port)
-
-
