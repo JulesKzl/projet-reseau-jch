@@ -67,7 +67,9 @@ def send_data (sock,neigh,Id):
 
 def make_Ihave (seqno,Id):
     return(bytes([6,12,seqno//256,seqno%256])+Id)
-def send_Ihave (sock,neigh,seqno,Id):
+def send_Ihave (sock,ip,port,tlv):
+    seqno = tlv[2:6]
+    Id = tlv[6:14]
     sock.sendto(make_entete(14) + make_Ihave(seqno,Id) , (neigh.IP,neigh.port))
     print("I HAVE sent to",neigh.IP,":",neigh.port)
 
