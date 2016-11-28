@@ -1,5 +1,6 @@
 import socket
 import types
+import aux_fonctions
 
 import last_time
 import neighbourgs

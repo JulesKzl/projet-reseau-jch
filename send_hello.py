@@ -14,7 +14,7 @@ def main ():
     s.bind((HOST_SELF,PORT_SELF))
     while True :
         s.sendto(ENTETE + SUITE + b'L.O.',(HOST_JCH,PORT_BOOT))
-        mess = s.recvfrom(1024)
+        mess = s.recvfrom(4096)
         print(mess)
 
 if __name__ == "__main__":
