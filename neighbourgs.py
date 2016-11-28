@@ -63,7 +63,7 @@ def print_neighbourgs(l):
             print("date updated ?",time.time() - n.date)
         if l == symetric_neighbourgs:
             print("Date_IHU :",n.date_ihu)
-            print("date_ihu updated ? ",time.time() - n.date_ihu
+            print("date_ihu updated ? ",time.time() - n.date_ihu)
         i += 1
 
 
@@ -177,10 +177,3 @@ def debug_neighbourgs():
     print_neighbourgs(unilateral_neighbourgs)
     print("symetric_neighbourgs")
     print_neighbourgs(symetric_neighbourgs)
-
-
-def neighbourg_maintenance():
-    """" Gère les listes de voisins """
-    #Toutes les 30 secondes, on envoie des Pad0 à U et S
-    return 0
-    #Si |S| < 5, on envoie un paquet vide à i dans P au hasard
