@@ -3,6 +3,7 @@ import types
 import time
 import neighbours
 import const as c
+import data
 
 US = c.Id
 
@@ -43,5 +44,18 @@ def make_neighbours (neigh_list):
 def send_neighbours (sock,neigh,neigh_list):
     sock.sendto(make_entete(2+26*len(neigh_list)) + make_neighbours(neigh_list) , (neigh.IP,neigh.port))
     print("NEIGHBOURS sent to",neigh.IP,":",neigh.port)
+
+
+def make_data (Id):
+    tupl = data.datas.get(Id)
+    data = tupl[0]
+    seqno = tupl[2]
+
+    return(bytes([5,length,seqno]))
+    
+
+
+
+
 
 
