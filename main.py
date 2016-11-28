@@ -23,6 +23,7 @@ def main():
     while True :
         #On recoit un paquet UDP de taille maximale 4096
         message,(ip_sender,port_sender) = s.recvfrom(4096)
+        print("Type=",type(ip_sender))
         id_sender = af.get_id_from_paquet(message)
         print("New UDP paquet received, from ",ip_sender,":",port_sender\
         ,"with Id :",id_sender.hex())

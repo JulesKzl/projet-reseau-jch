@@ -7,6 +7,11 @@ import data
 
 US = c.Id
 
+# def convert_ipv4_to_bytes(ipv4)
+#     ip_as_bytes = bytes(map(int, ip.split('.')))
+#     en_tete = bytes.fromhex('00000000ffff')
+#     return(en_tete + ip_as_bytes)
+
 def make_entete (length):
     return(bytes([57,0,(length // 256),(length % 256)])+US)
 
@@ -72,18 +77,3 @@ def send_Ihave (sock,IP,port,tlv):
     Id = tlv[6:14]
     sock.sendto(make_entete(14) + make_Ihave(seqno,Id) , (IP,port))
     print("I HAVE sent to",neigh.IP,":",neigh.port)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
