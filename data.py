@@ -1,19 +1,16 @@
 import time
+import neighbours as n
+import send
 
-datas = {'1604135e1d0c135e':('L.O.',time.time(),0,False,[])}
 
-def add_data (Id,new_data,seqno):
-    maybe = datas.get(Id)
-    if maybe != None :
-        if maybe[2] < seqno :
-            maybe[0] = new_data
-            maybe[1] = time.time()
-            maybe[2] = seqno
-            #innonde()
-    else :
-        datas[Id] = (new_data,time.time(),seqno,False,[])
-        #innonde()
-    #send_I_have ()
+# 0 -> data
+# 1 -> date de dernière reception
+# 2 -> seqno
+# 3 -> en cours d'innondation
+# 4 -> liste des voisins n'ayant pas encore répondu à l'innondation
+# 5 -> date de début de l'innondation
+# 6 -> date du dernier envoi pendant l'innondation
+datas = {'1604135e1d0c135e':['L.O.',time.time(),0,True,n.symetric_neighbours,time.time(),time.time()]}
 
 
 def rm_data ():
@@ -33,12 +30,19 @@ def update_data (tlv):
             some[0] = data
             some[1] = now
             some[2] = seqno
-            #innondation()
+            some[3] = True
+            some[4] = n.symetric_neighbours
+            some[5] = now
+            some[6] = now
     else :
-        datas[Id] = (data,now,seqno)
-        #innondation()
+        datas[Id] = [data,now,seqno,True,[],n.symetric_neighbours,now,now]
 
-
+def innondation ():
+    for key in datas :
+        tupl = datas.get(key)
+        targets = tupl[4]
+        for neigh in targets :
+            send.send_data(sock,neigh,key)
 
 
 

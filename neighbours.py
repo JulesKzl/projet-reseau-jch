@@ -1,7 +1,6 @@
 """ On gère les opérations relatives aux voisins """
 import time
 import const as c
-import send
 
 class Neighnour:
     """Classe définissant un neighnour :
