@@ -40,9 +40,18 @@ def update_data (tlv):
 def innondation ():
     for key in datas :
         tupl = datas.get(key)
-        targets = tupl[4]
-        for neigh in targets :
-            send.send_data(sock,neigh,key)
+        if tupl[3] :
+            now = time.time()
+            if now - tupl[5] > 11 :
+                tupl[3] = False
+                #supprime tupl.4 de n.sym...
+            else :
+                if now - tupl[6] > 3 :
+                    targets = tupl[4]
+                    some[6] = now
+                    for neigh in targets :
+                        send.send_data(sock,neigh,key)
+
 
 
 
