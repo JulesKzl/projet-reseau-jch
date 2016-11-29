@@ -14,7 +14,9 @@ def main():
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.bind((c.HOST_SELF,c.PORT_SELF))
     #On initialise nos voisins grâce à nos bootstrap
-    nb.initialize_neighnour([(c.Id_JCH,c.HOST_JCH,c.PORT_JCH)])
+    ip = send.convert_ipv4_to_bytes(c.HOST_JCH)
+    port = send.convert_port_to_bytes(c.PORT_JCH)
+    nb.initialize_neighnour([(c.Id_JCH,ip,port)])
     #On envoie un IHU à nos bootstrap (ici Juliusz)
     for neigh in nb.potential_neighbours:
         send.send_ihu (s,neigh)
@@ -23,15 +25,16 @@ def main():
     while True :
         #On recoit un paquet UDP de taille maximale 4096
         message,(ip_sender,port_sender) = s.recvfrom(4096)
-        print("Type=",type(ip_sender))
+        ip_i = send.convert_ipv4_to_bytes(ip_sender)
+        port_i = send.convert_port_to_bytes(port_sender)
         id_sender = af.get_id_from_paquet(message)
         print("New UDP paquet received, from ",ip_sender,":",port_sender\
-        ,"with Id :",id_sender.hex())
+        ,"with Id :",id_sender)
         print("Message :",message)
         print("Body length of message :",af.get_length_of_paquet(message))
 
         #On mets à jour les voisins car on a reçu un nouveau paquet
-        nb.new_unilateral_neighbour(id_sender,ip_sender,port_sender)
+        nb.new_unilateral_neighbour(id_sender,ip_i,port_i)
 
         # On extrait les TLV dans une liste tlv_list
         print("Extraction of TLV from UDP paquet ...")
@@ -55,7 +58,7 @@ def main():
                 #On a reçu un IHU
                 print("TLV IHU received")
                 #On mets à jour les voisins (unilatéral deviennent symétrique)
-                nb.new_symetric_neighbour(id_sender,ip_sender,port_sender)
+                nb.new_symetric_neighbour(id_sender,ip_i,port_i)
             if tlv_type == 3:
                 #On a reçu un Neighbour Request
                 print("TLV Neighbour Request received")
@@ -75,7 +78,7 @@ def main():
             if tlv_type == 5:
                 #On a reçu des données !
                 print("TLV Data received !")
-                data.update_data(tlv)
+                #data.update_data(tlv)
                 send.send_Ihave (s,ip_sender,port_sender,tlv)
             if tlv_type == 6:
                 #On a reçu un IHave

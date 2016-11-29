@@ -24,10 +24,13 @@ def send_neighbours_pad1(sock):
     if now - date_send_neighbours_pad1 > 30. :
         print("Pad1 will be send to U and S")
         #On envoie à tous les voisins unilateraux
+        print("len=",len(nb.unilateral_neighbours))
         for neigh in nb.unilateral_neighbours:
+            print("neigh.IP",neigh.IP)
             send.send_pad1(sock,neigh)
         #On envoie à tous les voisins symétriques
         for neigh in nb.symetric_neighbours:
+            print("neigh.IP",neigh.IP)
             send.send_pad1(sock,neigh)
         #On regarde si |S| < 5
         if len(nb.symetric_neighbours) < 5:
@@ -38,8 +41,6 @@ def send_neighbours_pad1(sock):
                 print("Potential list not empty, Empty msg will be send")
                 x = randint(0,len(nb.potential_neighbours)-1)
                 neigh = nb.potential_neighbours[x]
-                print("neigh.IP",neigh.IP)
-                print("neigh.port",neigh.port)
                 send.send_empty(sock,neigh)
             else:
                 print("but the potential_neighbours is empty")
