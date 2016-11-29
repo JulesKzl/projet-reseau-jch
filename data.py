@@ -37,14 +37,15 @@ def update_data (tlv):
     else :
         datas[Id] = [data,now,seqno,True,[],n.symetric_neighbours,now,now]
 
-def innondation ():
+def innondation (sock):
     for key in datas :
         tupl = datas.get(key)
         if tupl[3] :
             now = time.time()
             if now - tupl[5] > 11 :
                 tupl[3] = False
-                #supprime tupl.4 de n.sym...
+                for neigh in tupl[4] :
+                    remove_symetric_neighbour(neigh)
             else :
                 if now - tupl[6] > 3 :
                     targets = tupl[4]
@@ -53,7 +54,9 @@ def innondation ():
                         send.send_data(sock,neigh,key)
 
 
-
-
-
-
+def update_innond (neigh,seqno):
+    for key in datas ::
+        tupl = datas.get(key)
+        if seqno > tupl[2]:
+            #remove_symetric_neigh(neigh)
+            print("pas fini")
