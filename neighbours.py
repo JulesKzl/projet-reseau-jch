@@ -24,6 +24,13 @@ unilateral_neighbours = list()
 #La liste contenant les voisins bilateraux
 symetric_neighbours = list()
 
+def remove_symetric_neighbour(neigh):
+    n = len(symetric_neighbours)
+    i = 0
+    while i<n:
+        if (symetric_neighbours[i]).Id == neigh.Id:
+            del symetric_neighbours[i]
+
 
 def initialize_neighnour(l):
     """ On part avec les noeuds de bootstrap"""
@@ -100,11 +107,6 @@ def print_neighbours(l):
             print("Date_IHU :",n.date_ihu)
             print("date_ihu updated ? ",time.time() - n.date_ihu)
         i += 1
-
-# def answer_nr(sock,id_sender,ip_sender,port_sender)
-#     neigh = Neighbour(id_sender,ip_send,port_sender)
-#
-#     send.send_neighbours(sock,neigh,neigh_list):
 
 
 def new_unilateral_neighbour(new_Id,new_IP,new_port):

@@ -69,7 +69,10 @@ def send_neighbours (sock,neigh,neigh_list):
     sock.sendto(make_entete(2+26*len(neigh_list)) + make_neighbours(neigh_list) , (IP,port))
     print("NEIGHBOURS sent to",IP,":",port)
 
-
+def answer_nr(sock,id_sender,ip_sender,port_sender):
+    print("We will respond to NR")
+    neigh = Neighbour(id_sender,ip_send,port_sender)
+    send_neighbours(sock,neigh,nb.symetric_neighbours)
 
 def make_data (Id):
     tupl = data.datas.get(Id)

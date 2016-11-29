@@ -64,7 +64,7 @@ def main():
                 print("TLV Neighbour Request received")
                 #TODO On envoie un TLV Neighbours à l'emetteur contenant
                 #au moins 5 voisins symétriques
-                #nb.answer_nr(s,id_sender,ip_sender,port_sender)
+                send.answer_nr(s,id_sender,ip_i,port_i)
             if tlv_type == 4:
                 #TODEBUG
                 #On a reçu un Neighbours
@@ -74,22 +74,21 @@ def main():
                 print(len(new_neighbours),"possibly new neighbours")
                 #on repeuple nos voisins potentiels (sans double dans U et S !)
                 nb.add_potential_neighbours(new_neighbours)
-                nb.debug_neighbours()
             if tlv_type == 5:
                 #On a reçu des données !
                 print("TLV Data received !")
-                #data.update_data(tlv)
+                #TOFINISH data.update_data(tlv)
                 send.send_Ihave (s,ip_sender,port_sender,tlv)
             if tlv_type == 6:
                 #On a reçu un IHave
                 print("TLV IHave received !")
-                #cf inondation je sais pas encore trop
+                #cf inondation
 
             #On a traité le TLV, on le supprime de la liste courante
             print("TLV",i,"/",n,"has been explored")
             i += 1
             tlv_list = tlv_list[1:]
-        #TODO On regarde si on doit inonder ou non (cf plus tard)
+        #TODO On regarde si on doit inonder ou non 
 
         #Choses à executer pérodiquement
         lt.maintenance_neighbours(s)

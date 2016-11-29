@@ -86,6 +86,7 @@ def maintenance_neighbours(sock):
     send_neighbours_pad1(sock)
     send_neighbours_ihu(sock)
     send_neighbours_nr(sock)
+    #TODO clean old neigbourg
 
 def time_publi ():
     now = time.time()
