@@ -8,16 +8,16 @@ PORT_JCH = 1212
 #Notre port
 PORT_SELF = 1312
 #Id de Juliusz
-Id_JCH = bytes.fromhex('6722a421aadb51bd')
+Id_JCH = bytes.fromhex('68fa34ac85cf9349')
 
 #Magic et Version
 ENTETE_UDP = bytes([57,0])
 
 #TODO rendre l'Id aléatoire (à la fin, d'abord les tests)
 #Id_Jules
-#Id = bytes([22,4,19,95,29,12,19,95])
+Id = bytes([22,4,19,95,29,12,19,95])
 #Id_Gab
-Id = bytes([22,4,19,94,29,12,19,94])
+#Id = bytes([22,4,19,94,29,12,19,94])
 
 
 
