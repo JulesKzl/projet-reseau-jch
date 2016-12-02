@@ -7,6 +7,7 @@ import neighbours as nb
 import const as c
 import send
 import print_nb
+import codecs
 
 
 def main():
@@ -29,7 +30,7 @@ def main():
         port_i = send.convert_port_to_bytes(port_sender)
         id_sender = af.get_id_from_paquet(message)
         print("New UDP paquet received, from ",ip_sender,":",port_sender\
-        ,"with Id :",id_sender)
+        ,"with Id :",codecs.encode(id_sender,'hex'))
         print("Message :",message)
         print("Body length of message :",af.get_length_of_paquet(message))
 

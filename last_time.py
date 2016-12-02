@@ -24,13 +24,11 @@ def send_neighbours_pad1(sock):
     if now - date_send_neighbours_pad1 > 30. :
         print("Pad1 will be send to U and S")
         #On envoie à tous les voisins unilateraux
-        print("len=",len(nb.unilateral_neighbours))
+        print("number of unilateral neighbours=",len(nb.unilateral_neighbours))
         for neigh in nb.unilateral_neighbours:
-            print("neigh.IP",neigh.IP)
             send.send_pad1(sock,neigh)
         #On envoie à tous les voisins symétriques
         for neigh in nb.symetric_neighbours:
-            print("neigh.IP",neigh.IP)
             send.send_pad1(sock,neigh)
         #On regarde si |S| < 5
         if len(nb.symetric_neighbours) < 5:
@@ -66,8 +64,12 @@ def send_neighbours_nr(sock):
     """" Toutes les 5 minutes, on envoie un NR à un S au hasard """
     now = time.time()
     global date_last_nr
-    if now - date_last_nr > 300. :
+    if now - date_last_nr > 300./10. :
+        print("************************************************")
+        print("************************************************")
         print("We will send Neighbour Request to a member of S")
+        print("************************************************")
+        print("************************************************")
         if len(nb.potential_neighbours) < 5:
             print("We have less than 5 potentials neighbours")
             #On envoie un NR à un S au hasard
