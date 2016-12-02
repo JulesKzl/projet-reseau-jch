@@ -65,11 +65,7 @@ def send_neighbours_nr(sock):
     now = time.time()
     global date_last_nr
     if now - date_last_nr > 300./10. :
-        print("************************************************")
-        print("************************************************")
         print("We will send Neighbour Request to a member of S")
-        print("************************************************")
-        print("************************************************")
         if len(nb.potential_neighbours) < 5:
             print("We have less than 5 potentials neighbours")
             #On envoie un NR à un S au hasard

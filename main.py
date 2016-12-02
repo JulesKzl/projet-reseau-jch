@@ -8,11 +8,11 @@ import const as c
 import send
 import print_nb
 import codecs
-import data 
+import data
 
 
 def main():
-    #On crée la socket pour se connecter à Juliusz
+    #On crée la socket 
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     s.bind((c.HOST_SELF,c.PORT_SELF))
     #On initialise nos voisins grâce à nos bootstrap
@@ -30,9 +30,9 @@ def main():
         ip_i = send.convert_ipv4_to_bytes(ip_sender)
         port_i = send.convert_port_to_bytes(port_sender)
         id_sender = af.get_id_from_paquet(message)
+        print("*********************************************************")
         print("New UDP paquet received, from ",ip_sender,":",port_sender\
         ,"with Id :",codecs.encode(id_sender,'hex'))
-        print("Message :",message)
         print("Body length of message :",af.get_length_of_paquet(message))
 
         #On mets à jour les voisins car on a reçu un nouveau paquet
@@ -53,10 +53,10 @@ def main():
             tlv_type = af.find_tlv_type(tlv)
             print("TLV",i,"/",n,"of type",tlv_type,"is going to be explore")
             if tlv_type == 0:
-                #Le TLV Pad1 est ignoré à la récéption
+                #Le TLV Pad1 est ignoré à la réception
                 print("TLV Pad1 received")
             if tlv_type == 1:
-                #Le TLV PadN est ignoré à la récéption
+                #Le TLV PadN est ignoré à la réception
                 print("TLV PadN received")
             if tlv_type == 2:
                 #On a reçu un IHU

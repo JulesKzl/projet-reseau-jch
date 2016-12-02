@@ -65,7 +65,6 @@ def add_potential_neighbours(l):
     l2 = list()
     #On parcourt notre liste d'entrée pour unilateral_neighbours
     l1 = list()
-    print("len l =",len(l))
     if unilateral_neighbours != list():
         while l != list():
             for n in unilateral_neighbours:
@@ -74,7 +73,6 @@ def add_potential_neighbours(l):
             del l[0]
     else:
         l1 = l
-    print("len l1 = ",len(l1))
     if symetric_neighbours != list():
         while l1 != list():
             for n in symetric_neighbours:

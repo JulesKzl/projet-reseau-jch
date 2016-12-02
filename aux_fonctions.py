@@ -36,9 +36,3 @@ def get_id_from_paquet (paquet):
 # Renvoie la longueur du paquet (int)
 def get_length_of_paquet (paquet):
     return(paquet[2]*256 + paquet[3])
-
-def bidon() :
-    return (0)
-
-
-
