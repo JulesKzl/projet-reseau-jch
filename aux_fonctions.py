@@ -16,14 +16,17 @@ def extract_neigh_from_tlv (tlv):
 
 # Prend un paquet et renvoie la liste des TLV encapsulés dedans
 def extract_tlv_from_paquet (paquet):
-    tlv_list = list()
-    length_p = paquet[2] * 256 + paquet[3]
-    curseur = 12
-    while curseur-12 < length_p :
-        length_tlv = paquet[curseur+1]
-        tlv_list = tlv_list + [paquet[curseur:curseur+length_tlv+2]]
-        curseur = curseur + length_tlv + 2
-    return(tlv_list)
+    if paquet[0] == 57 and paquet[1] == 0 :
+        tlv_list = list()
+        length_p = paquet[2] * 256 + paquet[3]
+        curseur = 12
+        while curseur-12 < length_p :
+            length_tlv = paquet[curseur+1]
+            tlv_list = tlv_list + [paquet[curseur:curseur+length_tlv+2]]
+            curseur = curseur + length_tlv + 2
+        return(tlv_list)
+    else :
+        return(list())
 
 # Renvoie le type d'un tlv (int)
 def find_tlv_type (tlv):

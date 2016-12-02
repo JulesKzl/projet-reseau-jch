@@ -57,10 +57,14 @@ def innondation (sock):
                     for neigh in targets :
                         send.send_data(sock,neigh,key)
 
-
+# Appelée lorsqu'on reçoit un tlv IHave contenant l'ID d'une donnée :
+# si la donnée est au moins aussi récente, alors on retire l'emetteur de la liste des gens qui n'ont pas acquité, et vérifie que la liste est toujours non vide.
 def update_innond (neigh,seqno):
-    for key in datas :
-        tupl = datas.get(key)
-        if seqno > tupl[2]:
-            #remove_symetric_neigh(neigh)
-            print("pas fini")
+    tupl = datas.get(Id)
+    if tupl :
+        if tupl[3] :
+            if seqno > tupl[2] :
+                if neigh in tupl[4] :
+                    list[4].remove(neigh)
+                    if not l :
+                        tupl[3] = False
