@@ -3,6 +3,7 @@ import types
 import time
 import neighbours as nb
 import const as c
+import codecs
 
 US = c.Id
 
@@ -24,34 +25,38 @@ def make_entete (length):
     return(bytes([57,0,(length // 256),(length % 256)])+US)
 
 def send_pad1 (sock,neigh):
+    Id = codecs.encode(neigh.Id,'hex')
     IP = convert_bytes_to_ipv4(neigh.IP)
     port = int(convert_bytes_to_port(neigh.port))
     sock.sendto(make_entete(1) + bytes([0]) , (IP,port))
-    print("PAD1 sent to",IP,":",port)
+    print("PAD1 sent to Id :",Id,"(",IP,":",port,")")
 
 def send_empty (sock,neigh):
+    Id = codecs.encode(neigh.Id,'hex')
     IP = convert_bytes_to_ipv4(neigh.IP)
     port = int(convert_bytes_to_port(neigh.port))
     sock.sendto(make_entete(0) , (IP,port))
-    print("Empty package sent to",IP,":",port)
+    print("Empty package sent to Id :",Id,"(",IP,":",port,")")
 
 
 def make_ihu (Id):
     return(bytes([2,8]) + Id)
 def send_ihu (sock,neigh):
+    Id = codecs.encode(neigh.Id,'hex')
     IP = convert_bytes_to_ipv4(neigh.IP)
     port = int(convert_bytes_to_port(neigh.port))
     sock.sendto(make_entete (10) + make_ihu(neigh.Id) , (IP,port))
-    print("IHU sent to",IP,":",port)
+    print("IHU sent to Id :",Id,"(",IP,":",port,")")
 
 
 def make_nr ():
     return(bytes([3,0]))
 def send_nr (sock,neigh):
+    Id = codecs.encode(neigh.Id,'hex')
     IP = convert_bytes_to_ipv4(neigh.IP)
     port = int(convert_bytes_to_port(neigh.port))
     sock.sendto(make_entete(2) + make_nr() , (IP,port))
-    print("NR sent to",IP,":",port)
+    print("NR sent to Id :",Id,"(",IP,":",port,")")
 
 
 def make_neighbours (neigh_list):
@@ -63,10 +68,11 @@ def make_neighbours (neigh_list):
         tlv = tlv + neigh.Id + neigh.IP + neigh.port
     return(tlv)
 def send_neighbours (sock,neigh,neigh_list):
+    Id = codecs.encode(neigh.Id,'hex')
     IP = convert_bytes_to_ipv4(neigh.IP)
     port = int(convert_bytes_to_port(neigh.port))
     sock.sendto(make_entete(2+26*len(neigh_list)) + make_neighbours(neigh_list) , (IP,port))
-    print("NEIGHBOURS sent to",IP,":",port)
+    print("NEIGHBOURS sent to Id :",Id,"(",IP,":",port,")")
 
 def answer_nr(sock,id_sender,ip_sender,port_sender):
     print("We will respond to NR")
