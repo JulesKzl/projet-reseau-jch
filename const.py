@@ -20,9 +20,3 @@ ENTETE_UDP = bytes([57,0])
 Id = bytes([22,4,19,94,29,12,19,94])
 
 
-
-def make_IHU(Id1,Id2):
-    """ Créer un IHeardYou d'une Id1 vers une Id2 """
-    IHU = bytes([2,8])
-    length_IHU = bytes([0,10])
-    return ENTETE_UDP + length_IHU + Id1 + IHU + Id2

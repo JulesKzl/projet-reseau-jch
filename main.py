@@ -87,6 +87,9 @@ def main():
             if tlv_type == 6:
                 #On a reçu un IHave
                 print("TLV IHave received !")
+                #Id = tlv[]
+                #f
+                #data.update_innond()
                 #cf inondation
 
             #On a traité le TLV, on le supprime de la liste courante
