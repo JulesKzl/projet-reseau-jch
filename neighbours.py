@@ -2,8 +2,8 @@
 import time
 import const as c
 
-class Neighnour:
-    """Classe définissant un neighnour :
+class Neighbour:
+    """Classe définissant un neighbour :
     - son Id
     - son IP
     - son port
@@ -32,7 +32,7 @@ def remove_symetric_neighbour(neigh):
             del symetric_neighbours[i]
 
 
-def initialize_neighnour(l):
+def initialize_neighbour(l):
     """ On part avec les noeuds de bootstrap"""
     add_neighbours(l,potential_neighbours)
 
@@ -46,14 +46,14 @@ def add_neighbours(l,v):
         l = l[1::]
         #Assurons nous de ne pas être dans la liste de voisins...
         if Id != c.Id:
-            new_neighnour = Neighnour(Id,IP,port)
+            new_neighbour = Neighbour(Id,IP,port)
             #Si on est dans S ou U, alors on associe une date
             if (v == symetric_neighbours or v == unilateral_neighbours):
-                new_neighnour.date = time.time()
+                new_neighbour.date = time.time()
             #Si on est dans S, on associe une date de dernier IHU reçu
             if v == symetric_neighbours:
-                new_neighnour.date_ihu = time.time()
-            v.append(new_neighnour)
+                new_neighbour.date_ihu = time.time()
+            v.append(new_neighbour)
         else:
             print("I was in the possibly neighbours")
 
@@ -96,7 +96,7 @@ def print_neighbours(l):
         print("Empty list here!")
     while i < len(l):
         n = l[i]
-        print("** Neighnour",i+1,"/",len(l),"**")
+        print("** neighbour",i+1,"/",len(l),"**")
         print("Id :",n.Id.hex())
         print("IP :",n.IP)
         print("Port :",n.port)
@@ -117,10 +117,10 @@ def new_unilateral_neighbour(new_Id,new_IP,new_port):
     n = len(l)
     i = 0
     while i < n:
-        neighnour = l[i]
-        if neighnour.Id == new_Id:
+        neighbour = l[i]
+        if neighbour.Id == new_Id:
             #On met à jour la date
-            neighnour.date = time.time()
+            neighbour.date = time.time()
             #On sort de la boucle
             i = n
             print("new Id is already in symetric_neighbours, date updated")
@@ -134,10 +134,10 @@ def new_unilateral_neighbour(new_Id,new_IP,new_port):
     n = len(l)
     i = 0
     while i < n:
-        neighnour = l[i]
-        if neighnour.Id == new_Id:
+        neighbour = l[i]
+        if neighbour.Id == new_Id:
             #On met à jour la date
-            neighnour.date = time.time()
+            neighbour.date = time.time()
             #On sort de la boucle
             i = n
             print("new Id is already in unilateral_neighbours, date updated")
@@ -151,8 +151,8 @@ def new_unilateral_neighbour(new_Id,new_IP,new_port):
     n = len(l)
     i = 0
     while i < n:
-        neighnour = l[i]
-        if neighnour.Id == new_Id:
+        neighbour = l[i]
+        if neighbour.Id == new_Id:
             del(l[i])
             print("new Id was in potential_neighbours, yet no more")
             return 0
@@ -169,11 +169,11 @@ def new_symetric_neighbour(new_Id,new_IP,new_port):
     n = len(l)
     i = 0
     while i < n:
-        neighnour = l[i]
-        if neighnour.Id == new_Id:
+        neighbour = l[i]
+        if neighbour.Id == new_Id:
             #On met à jour la date
-            neighnour.date = time.time()
-            neighnour.date_ihu = time.time()
+            neighbour.date = time.time()
+            neighbour.date_ihu = time.time()
             #On sort de la boucle
             i = n
             print("new Id is already in symetric_neighbours, date updated")
@@ -188,8 +188,8 @@ def new_symetric_neighbour(new_Id,new_IP,new_port):
     n = len(l)
     i = 0
     while i < n:
-        neighnour = l[i]
-        if neighnour.Id == new_Id:
+        neighbour = l[i]
+        if neighbour.Id == new_Id:
             del(l[i])
             #On sort de la boucle
             i = n
@@ -203,8 +203,8 @@ def new_symetric_neighbour(new_Id,new_IP,new_port):
     n = len(l)
     i = 0
     while i < n:
-        neighnour = l[i]
-        if neighnour.Id == new_Id:
+        neighbour = l[i]
+        if neighbour.Id == new_Id:
             del(l[i])
             print("new Id was in potential_neighbours, yet no more")
             return 0

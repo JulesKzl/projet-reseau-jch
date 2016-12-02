@@ -15,10 +15,10 @@ def main():
     #On initialise nos voisins grâce à nos bootstrap
     ip = send.convert_ipv4_to_bytes(c.HOST_JCH)
     port = send.convert_port_to_bytes(c.PORT_JCH)
-    nb.initialize_neighnour([(c.Id_JCH,ip,port)])
+    nb.initialize_neighbour([(c.Id_JCH,ip,port)])
     #On envoie un IHU à nos bootstrap (ici Juliusz)
     for neigh in nb.potential_neighbours:
-        send.send_ihu (s,neigh)
+        send.send_empty(s,neigh)
 
     #Boucle principale
     while True :
@@ -34,6 +34,8 @@ def main():
 
         #On mets à jour les voisins car on a reçu un nouveau paquet
         nb.new_unilateral_neighbour(id_sender,ip_i,port_i)
+        #On imprime les listes de voisins
+        nb.debug_neighbours()
 
         # On extrait les TLV dans une liste tlv_list
         print("Extraction of TLV from UDP paquet ...")
@@ -58,6 +60,8 @@ def main():
                 print("TLV IHU received")
                 #On mets à jour les voisins (unilatéral deviennent symétrique)
                 nb.new_symetric_neighbour(id_sender,ip_i,port_i)
+                #On imprime les listes de voisins
+                nb.debug_neighbours()
             if tlv_type == 3:
                 #On a reçu un Neighbour Request
                 print("TLV Neighbour Request received")

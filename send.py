@@ -1,7 +1,7 @@
 import socket
 import types
 import time
-import neighbours
+import neighbours as nb
 import const as c
 
 US = c.Id
@@ -33,7 +33,7 @@ def send_empty (sock,neigh):
     IP = convert_bytes_to_ipv4(neigh.IP)
     port = int(convert_bytes_to_port(neigh.port))
     sock.sendto(make_entete(0) , (IP,port))
-    print("NOTHING sent to",IP,":",port)
+    print("Empty package sent to",IP,":",port)
 
 
 def make_ihu (Id):
@@ -70,7 +70,7 @@ def send_neighbours (sock,neigh,neigh_list):
 
 def answer_nr(sock,id_sender,ip_sender,port_sender):
     print("We will respond to NR")
-    neigh = Neighbour(id_sender,ip_send,port_sender)
+    neigh = nb.Neighbour(id_sender,ip_sender,port_sender)
     send_neighbours(sock,neigh,nb.symetric_neighbours)
 
 # def make_data (Id):
