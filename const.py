@@ -15,9 +15,9 @@ ENTETE_UDP = bytes([57,0])
 
 #TODO rendre l'Id aléatoire (à la fin, d'abord les tests)
 #Id_Jules
-Id = bytes([22,4,19,95,29,12,19,95])
+#Id = bytes([22,4,19,95,29,12,19,95])
 #Id_Gab
-#Id = bytes([22,4,19,94,29,12,19,94])
+Id = bytes([22,4,19,94,29,12,19,94])
 
 
 

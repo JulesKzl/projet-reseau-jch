@@ -89,26 +89,6 @@ def add_potential_neighbours(l):
 
 
 
-def print_neighbours(l):
-    """ Prends en entrée une liste de voisins et l'imprime """
-    i = 0
-    if len(l) == 0:
-        print("Empty list here!")
-    while i < len(l):
-        n = l[i]
-        print("** neighbour",i+1,"/",len(l),"**")
-        print("Id :",n.Id.hex())
-        print("IP :",n.IP)
-        print("Port :",n.port)
-        if (l == symetric_neighbours or l == unilateral_neighbours):
-            print("Date :",n.date)
-            print("date updated ?",time.time() - n.date)
-        if l == symetric_neighbours:
-            print("Date_IHU :",n.date_ihu)
-            print("date_ihu updated ? ",time.time() - n.date_ihu)
-        i += 1
-
-
 def new_unilateral_neighbour(new_Id,new_IP,new_port):
     """ Quand on recoit un nouveau message, on met à jour nos listes de
     voisins """
@@ -211,11 +191,3 @@ def new_symetric_neighbour(new_Id,new_IP,new_port):
         else:
             i += 1
     print("new Id was not in potential_neighbours anyway")
-
-def debug_neighbours():
-    print("potential_neighbours")
-    print_neighbours(potential_neighbours)
-    print("unilateral_neighbours")
-    print_neighbours(unilateral_neighbours)
-    print("symetric_neighbours")
-    print_neighbours(symetric_neighbours)
