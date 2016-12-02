@@ -81,7 +81,7 @@ def main():
             if tlv_type == 5:
                 #On a reçu des données !
                 print("TLV Data received !")
-                #TOFINISH data.update_data(tlv)
+                data.update_data(tlv)
                 send.send_Ihave (s,ip_sender,port_sender,tlv)
             if tlv_type == 6:
                 #On a reçu un IHave
