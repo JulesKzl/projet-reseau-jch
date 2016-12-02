@@ -8,6 +8,7 @@ import const as c
 import send
 import print_nb
 import codecs
+import data 
 
 
 def main():
