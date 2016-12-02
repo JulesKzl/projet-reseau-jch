@@ -10,7 +10,7 @@ def print_neighbours(l):
     while i < len(l):
         n = l[i]
         print("** neighbour",i+1,"/",len(l),"**")
-        print("Id :",n.Id.hex())
+        print("Id :",n.Id)
         print("IP :",send.convert_bytes_to_ipv4(n.IP))
         print("Port :",send.convert_bytes_to_port(n.port))
         if (l == nb.symetric_neighbours or l == nb.unilateral_neighbours):
