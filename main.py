@@ -7,6 +7,7 @@ import neighbours as nb
 import const as c
 import send
 import print_nb
+import data
 
 
 def main():
