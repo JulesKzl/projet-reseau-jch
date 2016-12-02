@@ -6,6 +6,7 @@ import last_time as lt
 import neighbours as nb
 import const as c
 import send
+import print_nb
 
 
 def main():
@@ -35,7 +36,7 @@ def main():
         #On mets à jour les voisins car on a reçu un nouveau paquet
         nb.new_unilateral_neighbour(id_sender,ip_i,port_i)
         #On imprime les listes de voisins
-        nb.debug_neighbours()
+        print_nb.debug_neighbours()
 
         # On extrait les TLV dans une liste tlv_list
         print("Extraction of TLV from UDP paquet ...")
@@ -61,15 +62,14 @@ def main():
                 #On mets à jour les voisins (unilatéral deviennent symétrique)
                 nb.new_symetric_neighbour(id_sender,ip_i,port_i)
                 #On imprime les listes de voisins
-                nb.debug_neighbours()
+                print_nb.debug_neighbours()
             if tlv_type == 3:
                 #On a reçu un Neighbour Request
                 print("TLV Neighbour Request received")
-                #TODO On envoie un TLV Neighbours à l'emetteur contenant
+                #On envoie un TLV Neighbours à l'emetteur contenant
                 #au moins 5 voisins symétriques
                 send.answer_nr(s,id_sender,ip_i,port_i)
             if tlv_type == 4:
-                #TODEBUG
                 #On a reçu un Neighbours
                 print("TLV Neighbours received")
                 #On extrait les voisins sous forme d'une liste de triplés
