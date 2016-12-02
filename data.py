@@ -18,7 +18,7 @@ def rm_data ():
         if time.time() - datas.get(key)[2] > 2100.:
             del datas[key]
 
-# Prend un tlv correspondant à une data et effectue la mise à jour correspondant
+# Prend un tlv correspondant à une data et effectue la mise à jour correspondant dans la liste des data que l'on maintient
 def update_data (tlv):
     seqno = tlv[2:6]
     Id = tlv[6:14]
@@ -37,6 +37,10 @@ def update_data (tlv):
     else :
         datas[Id] = [data,now,seqno,True,[],n.symetric_neighbours,now,now]
 
+# Parcours la liste des datas et si elles sont en cours d'innondation :
+# vérifie que c'est toujours d'actualité :
+# - si non alors on enlève le flag inondation et retire les restants de la liste de symetric_neighbours
+# - si oui, vérifie qu'on est à plus de 3 secondes de la dernière inondation, si oui alors on envoie à tout le monde et actualise la date
 def innondation (sock):
     for key in datas :
         tupl = datas.get(key)
