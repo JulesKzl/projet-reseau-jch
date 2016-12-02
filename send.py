@@ -3,7 +3,6 @@ import types
 import time
 import neighbours
 import const as c
-import data
 
 US = c.Id
 
@@ -74,21 +73,21 @@ def answer_nr(sock,id_sender,ip_sender,port_sender):
     neigh = Neighbour(id_sender,ip_send,port_sender)
     send_neighbours(sock,neigh,nb.symetric_neighbours)
 
-def make_data (Id):
-    tupl = data.datas.get(Id)
-    data = tupl[0]
-    seqno = tupl[2]
-    length = len(data) + 12
-    if length + 14 > 4096:
-        print("cette donnée est trop grosse, je refuse de l'envoyer !")
-    else :
-        return(bytes([5,length,seqno])+Id+data)
-def send_data (sock,neigh,Id):
-    length = len(data.datas.get(Id)[0]) + 14
-    corps = make_data(Id)
-    if corps :
-        sock.sendto(make_entete(length) + make_data(Id) , (neigh.IP,neigh.port))
-        print("DATA sent to",neigh.IP,":",neigh.port)
+# def make_data (Id):
+#     tupl = data.datas.get(Id)
+#     data = tupl[0]
+#     seqno = tupl[2]
+#     length = len(data) + 12
+#     if length + 14 > 4096:
+#         print("cette donnée est trop grosse, je refuse de l'envoyer !")
+#     else :
+#         return(bytes([5,length,seqno])+Id+data)
+# def send_data (sock,neigh,Id):
+#     length = len(data.datas.get(Id)[0]) + 14
+#     corps = make_data(Id)
+#     if corps :
+#         sock.sendto(make_entete(length) + make_data(Id) , (neigh.IP,neigh.port))
+#         print("DATA sent to",neigh.IP,":",neigh.port)
 
 
 

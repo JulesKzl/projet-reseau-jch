@@ -55,7 +55,7 @@ def innondation (sock):
 
 
 def update_innond (neigh,seqno):
-    for key in datas ::
+    for key in datas :
         tupl = datas.get(key)
         if seqno > tupl[2]:
             #remove_symetric_neigh(neigh)

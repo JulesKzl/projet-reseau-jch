@@ -6,7 +6,6 @@ import last_time as lt
 import neighbours as nb
 import const as c
 import send
-import data
 
 
 def main():
@@ -88,7 +87,7 @@ def main():
             print("TLV",i,"/",n,"has been explored")
             i += 1
             tlv_list = tlv_list[1:]
-        #TODO On regarde si on doit inonder ou non 
+        #TODO On regarde si on doit inonder ou non
 
         #Choses à executer pérodiquement
         lt.maintenance_neighbours(s)
